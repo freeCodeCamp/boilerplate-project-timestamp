@@ -24,6 +24,37 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/timestamp/:date", function (req, res) {
+  var data = req.params.date;
+  if(isNaN(data)) {
+    //if entry is yyyy-mm-dd
+    var unixFormat = new Date(data).getTime()/1000;
+    var date = new Date(unixFormat * 1000);
+    var utc = date.toUTCString();
+  } else {
+    //if entry is unix
+    var date = new Date(data * 1000);
+    var utc = date.toUTCString();
+    var unixFormat = parseInt(data);
+  }
+  res.json({ 
+    unix: unixFormat,
+    utc: utc
+  });
+});
+
+app.get("/api/timestamp/:date", function(req, res) {
+  var time = new Date();
+  var unix = time.getTime();
+  var utc = time.toUTCString();
+  
+  res.json({
+    unix: unix,
+    utc: utc
+  });
+});
+    
+
 
 
 // listen for requests :)
