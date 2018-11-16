@@ -17,3 +17,9 @@ e.g. `{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}`.
 
 #### Example output:
 * { "unix": 1450137600, "natural": "December 15, 2015" }
+
+
+#### FreeCodeCamp lesson
+This is work by Oliver Schafeld for Free Code Camp's course 'Apis and Microservices' wirh Node.js.
+First project, for details see: 
+https://learn.freecodecamp.org/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice 
