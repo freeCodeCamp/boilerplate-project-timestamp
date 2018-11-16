@@ -20,6 +20,6 @@ e.g. `{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}`.
 
 
 #### FreeCodeCamp lesson
-This is work by Oliver Schafeld for Free Code Camp's course 'Apis and Microservices' wirh Node.js.
+This is work by Oliver Schafeld for Free Code Camp's course 'Apis and Microservices' with Node.js.
 First project, for details see: 
 https://learn.freecodecamp.org/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice 
