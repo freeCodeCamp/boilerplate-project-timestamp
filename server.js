@@ -24,9 +24,14 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-
+// Catch page not found/ error 404
+app.use(function(req, res, next) {
+  res.status(404)
+    .type('text')
+    .send('Page not Found (error 404). Please try another address.');
+});
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(process.env.PORT || 8080, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
