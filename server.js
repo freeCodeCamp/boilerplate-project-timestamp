@@ -18,18 +18,50 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.route('/api/timestamp/')
+app.route('/api/timestamp/:date?')
   .get(function (req, res){
 
     var date = new Date(Date.now());
+    var response = {};
 
-    var response = 
-      { "unix": date.getTime(),
+    if (req.params.date === undefined) {
+      // no parameter passed so respond with current time...
+      response =  {
+        "unix": date.getTime(),
         "utc": date.toUTCString()
       };
-    
-    res.json(response);
+      console.log("Timestamp undefined");
+    } 
+    else {
+      console.log("Passed timestamp data: " + req.params.date)
+      // ...otherwise check if it is a unix timestamp (typecast to number)
+      var timeStamp = parseInt(req.params.date/1);
 
+      if (isNaN(timeStamp)) {
+        console.log("Passed timestamp data isNaN.");
+        // it isn't a unix timestamp, but hopefully a valid Date object
+        date = new Date(req.params.date);
+      } 
+      else {
+        // hopefully it is a valid Unix timestamp
+        date = new Date(timeStamp);
+        console.log("Considering " + timeStamp + " to be a valid timestamp.");
+      }
+
+      // Use simple equality ('==') because invalid date message can be 'Invalid Date {}'
+      if (date == "Invalid Date") {
+        response = {error: "Invalid Date"};
+      } 
+      else {
+        // this date is from passed timestamp, not from initial variable declaration!
+        response = {
+          "unix": date.getTime(),
+          "utc": date.toUTCString()
+        };
+      }
+    }
+
+    res.json(response);
   });
 
 
