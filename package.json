@@ -5,8 +5,8 @@
 	"description": "A simple timerserver API, based on an FreeCodeCamp Node.js/ Back-end Challenge",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js",
-		"watch": "nodemon server.js"
+		"watch": "nodemon server.js",
+		"start": "node server.js"
 	},
 	"dependencies": {
 		"express": "^4.12.4",
