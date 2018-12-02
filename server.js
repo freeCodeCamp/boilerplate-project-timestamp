@@ -18,6 +18,20 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.route('/api/timestamp/')
+  .get(function (req, res){
+
+    var date = new Date(Date.now());
+
+    var response = 
+      { "unix": date.getTime(),
+        "utc": date.toUTCString()
+      };
+    
+    res.json(response);
+
+  });
+
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
