@@ -1,11 +1,12 @@
 {
-	"name": "fcc-api-projects-boilerplate",
-	"version": "0.0.2",
+	"name": "fcc-project-timestamp",
+	"version": "0.0.3",
 	"author": "Oliver Schafeld",
-	"description": "A simple timerserver API, based on an FCC Node.js/ Back-end Challenge",
+	"description": "A simple timerserver API, based on an FreeCodeCamp Node.js/ Back-end Challenge",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node server.js",
+		"watch": "nodemon server.js"
 	},
 	"dependencies": {
 		"express": "^4.12.4",

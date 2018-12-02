@@ -23,3 +23,10 @@ e.g. `{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}`.
 This is work by Oliver Schafeld for Free Code Camp's course 'Apis and Microservices' with Node.js.
 First project, for details see: 
 https://learn.freecodecamp.org/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice 
+
+
+#### Added features
+
+```npm run watch``` starts app locally on default port 8080. Helper application [nodemon](https://nodemon.io/) needs to be installed.
+
+Added configuration file ```now.json``` for deployment on [Zeit](https://zeit.co).
