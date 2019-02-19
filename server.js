@@ -26,10 +26,10 @@ app.get("/api/hello", function (req, res) {
 
 // get the time
 app.get("/api/timestamp/:date_string?", function(req, res, next){
-  req.date = req.params.date_string
- req.date===undefined?req.date=Date.now()
- :req.date.match(/-/)?req.date:req.date = parseInt(req.date,10)
- next();
+  req.date = req.params.date_string //set the request date.
+ req.date===undefined?req.date=Date.now()// if it is undefined, then it is now
+ :req.date.match(/-/)?req.date:req.date = parseInt(req.date,10)//if the request date has hyphens, it is just request date.  Else, parse the string into an integer
+ next();// when the middleware is finished, go to the next function.
 },function(req, res){
  res.json({'unix':new Date(req.date).getTime(), 'utc':new Date(req.date).toUTCString()})
  console.log((req.date))
