@@ -23,7 +23,19 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
+app.get("/api/timestamp/", function(req, res, next){
+  var date = new Date();
+  var dateUnix = date.getTime()
+  var dateUTC_ToString = date.toUTCString()
+  res.json({unix:dateUnix, utc:dateUTC_ToString});
+});
+//GET [project_url]/api/timestamp/:date_string?
+app.get("/api/timestamp/:dateString", function(req, res, next){
+  var date = new Date(req.params.dateString);
+  var dateUnix = date.getTime()
+  var dateUTC_ToString = date.toUTCString()
+  res.json({unix:dateUnix, utc:dateUTC_ToString});
+});
 
 
 // listen for requests :)
