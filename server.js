@@ -24,7 +24,25 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+const CanDateBeParsed = function(str) {
+    var date = new Date(str);
+    if (Date.parse(date)) return true;
+    return false;
+};
 
+app.get("/api/timestamp/:date_string?", function(req, res) {
+  var date;
+  if (req.params.date_string === undefined) {
+    date = new Date();
+    return res.json({"unix": Date.parse(date), "utc": date.toUTCString()})
+  };
+  if (CanDateBeParsed(req.params.date_string)) {
+    date = new Date(req.params.date_string);
+    return res.json({"unix": Date.parse(date), "utc": date.toUTCString()})
+  } else {
+    return res.json({"error": "Invalid Date"})
+  }
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
