@@ -24,7 +24,7 @@
           <li>If the date string is <strong>valid</strong> the api returns a JSON having the structure<br><code>{"unix": &lt;date.getTime()&gt;, "utc" : &lt;date.toUTCString()&gt; }</code><br>
             e.g. <code>{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}</code></li>
           <li>If the date string is <strong>invalid</strong> the api returns a JSON having the structure <br>
-              <code>{"unix": null, "utc" : "Invalid Date" }</code>. It is what you get from the date manipulation functions used above.
+              <code>{"error" : "Invalid Date" }</code>.
           </li>
         </ol>
 
