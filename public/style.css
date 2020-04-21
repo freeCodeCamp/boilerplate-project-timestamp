@@ -32,7 +32,9 @@ code {
   font-family: monospace;
   padding: 2px;
   color: black;
-  background-color: #fff;
+}
+.code-block > code {
+	background-color: lightgray;
 }
 ol {
 	list-style-position: outside;

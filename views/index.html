@@ -1,50 +1,79 @@
 <!DOCTYPE html>
-
 <html>
 
-   <head>
-      <title>Timestamp Microservice</title>
-      <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"/>
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-      <link href="style.css" rel="stylesheet" type="text/css">
-   </head>
+<head>
+  <meta charset="utf-8">
+  <meta content="ie=edge" http-equiv="x-ua-compatible">
+  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
+  <title>Timestamp Microservice</title>
+  <link rel="icon" href="https://www.freecodecamp.org/icons/icon-48x48.png?v=bf35f84ec919f18c70edcef4c694119c">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+  <link href="../public/style.css" rel="stylesheet" type="text/css" />
+</head>
 
-   <body>
+<body>
+  <div class="container">
+    <h2>API Project: Timestamp Microservice</h2>
+    <h3>User Stories:</h3>
+    <ol class="user-stories">
+      <li>
+        The API endpoint is
+        <code>GET [project_url]/api/timestamp/:date_string?</code>
+      </li>
+      <li>
+        A date string is valid when it can be successfully instantiated by <span class="code-block"><code>new Date(date_string)</code></span></br>
+         Note the unix timestamp needs to be an <b>integer</b> (not a string), specifying <b>milliseconds</b>.</br>
+         In our test, we will use date strings compliant with ISO-8601 (e.g. "2016-11-20") because this will ensure a UTC timestamp.
+      </li>
+      <li>
+        If the date string is <b>empty</b>, it should be equivalent to a <span class="code-block"><code>new Date()</code></span> object.
+      </li>
+      <li>
+        If the date string is <b>valid</b>, the api returns a JSON object with the structure
+        <div class="code-block">
+        <code>{ "unix": &lt;date.getTime()&gt;, "utc" : &lt;date.toUTCString()&gt; }</code>
+        </div>
+        <em>Example:</em>
+        <div class="code-block">
+        <code>{ "unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT" }</code>
+        </div>
+      </li>
+      <li>
+        If the date string is <b>invalid</b>, the api returns a JSON object with the structure
+        <div class="code-block">
+        <code>{ "unix": null, "utc" : "Invalid Date" }</code>.
+        </div></br>
+        The api response is the evaluation of the Date methods used above.
+      </li>
+    </ol>
 
-      <div class="container">
-        <h2>API Project: Timestamp Microservice</h2>
-        <h3>User Stories :</h3>
-        <ol class="user-stories">
-          
-          <li>The API endpoint is <code>GET [project_url]/api/timestamp/:date_string?</code></li>
-          <li>A date string is valid if can be successfully parsed by <code>new Date(date_string)</code>.<br>
-          Note that the unix timestamp needs to be an <strong>integer</strong> (not a string) specifying <strong>milliseconds</strong>.<br> 
-          In our test we will use date strings compliant with ISO-8601 (e.g. <code>"2016-11-20"</code>) because this will ensure an UTC timestamp.</li>
-          <li>If the date string is <strong>empty</strong> it should be equivalent to trigger <code>new Date()</code>, i.e. the service uses the current timestamp.</li>
-          <li>If the date string is <strong>valid</strong> the api returns a JSON having the structure<br><code>{"unix": &lt;date.getTime()&gt;, "utc" : &lt;date.toUTCString()&gt; }</code><br>
-            e.g. <code>{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}</code></li>
-          <li>If the date string is <strong>invalid</strong> the api returns a JSON having the structure <br>
-              <code>{"unix": null, "utc" : "Invalid Date" }</code>. It is what you get from the date manipulation functions used above.
-          </li>
-        </ol>
+    <h3>Example Usage:</h3>
+    <ul>
+      <li>
+        <div class="code-block">
+        <code>GET [project url]/api/timestamp/2015-12-25</code>
+        </div>
+      </li>
+      <li>
+        <div class="code-block">
+          <code>GET [project url]/api/timestamp/1450137600</code>
+        </div>
+      </li>
+    </ul>
 
-        <h3>Example Usage:</h3>
-        <ul>
-          <li>
-            <code>GET [project url]/api/timestamp/2015-12-25</code></li>
-          <li><code>GET project url]/api/timestamp/1450137600</code></li>
-        </ul>
-
-        <h3>Example Output:</h3>
-        <p>
-          <code>{"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"}</code>
-        </p>
+    <h3>Example Output:</h3>
+    <p>
+      <div class="code-block">
+      <code>{"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"}</code>
       </div>
-      <div class="footer">
-        <p>
-          by <a href="http://www.freecodecamp.com/">freeCodeCamp</a> | <a href="https://hyperdev.com/#!/remix/FCC_API_timestamp_bplate/8338be2-a353-4892-8a0d-6295e4f12eb5">Click here to Remix</a>
-        </p>
-      </div>
-   </body>
+    </p>
+  </div>
+  <div class="footer">
+    <p>
+      by <a href="https://www.freecodecamp.org/">freeCodeCamp</a> |
+      <a href="https://glitch.com/edit/#!/remix/shimmer-ripper">Click here to Remix</a>
+    </p>
+  </div>
+</body>
 
 </html>
