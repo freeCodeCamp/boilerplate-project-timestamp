@@ -1,7 +1,7 @@
 
 # API Project: Timestamp Microservice for FCC
 
-### User stories :
+### User stories:
 
 1. The API endpoint is `GET [project_url]/api/timestamp/:date_string?`
 2. A date string is valid if can be successfully parsed by `new Date(date_string)` (JS) . Note that the unix timestamp needs to be an **integer** (not a string) specifying **milliseconds**. In our test we will use date strings compliant with ISO-8601 (e.g. `"2016-11-20"`) because this will ensure an UTC timestamp.
@@ -12,8 +12,8 @@ e.g. `{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}`.
 5. If the date string is **invalid** the api returns a JSON having the structure `{"error" : "Invalid Date" }`.
 
 #### Example usage:
-* https://curse-arrow.hyperdev.space/api/timestamp/2015-12-15
-* https://curse-arrow.hyperdev.space/api/timestamp/1450137600000
+* https://curse-arrow.glitch.me/api/timestamp/2015-12-25
+* https://curse-arrow.glitch.me/api/timestamp/1451001600000
 
 #### Example output:
-* { "unix": 1450137600, "natural": "December 15, 2015" }
+* {"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"}
