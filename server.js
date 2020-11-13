@@ -21,9 +21,31 @@ app.get("/", function (req, res) {
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+  res.json({greeting: 'Hello, welcome to the Timestamp API'});
+});
+app.get('/api/timestamp', function(req,res){
+	res.json({unix: Date.now(), utc: Date()});
 });
 
+app.get('/api/timestamp/:date', function(req,res){
+	var date = req.params.date;
+  var unixRegex = /\d{5,}/;
+  
+  if (unixRegex.test(date)){
+    let dateInt = parseInt(date);
+    res.json({unix:date,utc: new Date(dateInt).toUTCString()});
+  }
+  
+  let dateObj = new Date(date);
+  
+  if (dateObj.toString() === 'Invalid Date'){
+    res.json({error: 'Invalid Date', reason: 'You stupid'});
+  }
+  else{
+    res.json({unix: dateObj.valueOf(), utc: dateObj.toUTCString()});
+  }
+  
+});
 
 
 // listen for requests :)
