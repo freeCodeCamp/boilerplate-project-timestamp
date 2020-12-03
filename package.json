@@ -4,7 +4,7 @@
 	"description": "An FCC Backend Challenge",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "nodemon server.js"
 	},
 	"dependencies": {
 		"express": "^4.12.4",
@@ -23,5 +23,8 @@
 		"express",
 		"freecodecamp"
 	],
-	"license": "MIT"
+	"license": "MIT",
+	"devDependencies": {
+		"nodemon": "^2.0.6"
+	}
 }

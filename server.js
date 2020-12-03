@@ -28,24 +28,24 @@ app.get('/api/timestamp', (req,res) => {
   res.json({unix: Date.now(), utc: Date()})
 })
 
-app.get('/api/timestamp/:dateString', (req, res) => {
-  let dateString = req.params.dateString;
+app.get('/api/timestamp/:dateValue', (req,res) => {
+  var dateValue = req.params.dateValue;
+//Options for formatting date
   let date;
-  if(!dateString) {
-    date = new Date();
-  }
-  else if(!isNan(dateString)) {
-    date = new Date(parseInt(dateString));
+  if(/\D/.test(dateValue)) {
+    date = new Date(dateValue);
   } else {
-    date = new Date(dateString);
+    date = new Date(parseInt(dateValue))
   }
-  if(date.toString() === 'Invalid Date') {
-    res.json({error: date.toString()})
-  } else {
-    res.json({unix: date.getTime(), utc: date.toUTCString()})
+  if(date == "Invalid Date") {
+    res.json({"error": "Invalid Date"})
   }
-})
+ let UTCDate = date.toUTCString();
+ let unixDate = date.getTime();
 
+ res.json({"unix": unixDate, "utc": UTCDate})
+
+})
 
 
 // listen for requests :)
