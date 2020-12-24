@@ -10,7 +10,6 @@
 		"express": "^4.12.4",
 		"cors": "^2.8.0"
 	},
-	"engines": {
 		"node": "10.15.1"
 	},
 	"repository": {
