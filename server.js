@@ -31,29 +31,21 @@ app.get("/api/hello", function (req, res) {
 });
 
 //to get param from user url
-app.get ('/api/:date?', (req, res) =>{
-  let newDate = req.params.date;
-  // const date = new Date(reqDateString)
-  // const unixDate = date.getTime();
-  const utcDate = new Date(newDate).toUTCString();
+app.get('/api/:date?', (req, res) => {
+  let date;
 
-  if (newDate === undefined) {
-    return res.json({ "utc": new Date() });
-  }
-  
-  if (newDate !== undefined && newDate.includes('-') === true) {
-    return res.json ({ "unix": new Date(newDate).getTime(), "utc" : new Date(newDate).toUTCString()  })
-  }
-
-  if(newDate.includes('-') === false ) {
-    newDate = Number(newDate)
-    return res.json ({ "unix": newDate, "utc" : new Date(newDate).toUTCString()  })
-  }
-
-  if( utcDate === "Invalid Date") {
-    res.json({ "error" : "Invalid Date" })
-
+  if(/\D/.test(req.params.date)) {
+    date = new Date(req.params.date);
+  }else {
+    date = new Date(parseInt(req.params.date))
   };
+
+  let utcDate = date.toUTCString();
+  let unixDate = date.getTime();
+
+  res.json ({
+    "unix" : unixDate, "utc" : utcDate
+  });
 });
 
 // listen for requests :)
