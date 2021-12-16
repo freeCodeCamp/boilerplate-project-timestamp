@@ -32,24 +32,29 @@ app.get("/api/hello", function (req, res) {
 
 //to get param from user url
 app.get ('/api/:date?', (req, res) =>{
-  const newDate = req.params.date;
+  let newDate = req.params.date;
+  // const date = new Date(reqDateString)
+  // const unixDate = date.getTime();
+  const utcDate = new Date(newDate).toUTCString();
 
-if (newDate === ' ') {
-  return res.json({"unix": new Date().getTime()/1000,  "utc": new Date()});
-}
-else if (/^\d*$/.test(newDate)) {
-  return res.json({"unix": newDate, "utc": new Date(newDate/1000).toUTCString()})
-}
- 
-else if (newDate.toString() === "Invalid Date") {
-  return res.json ({ "error": "Invalid Date" })
-}
+  if (newDate === undefined) {
+    return res.json({ "utc": new Date() });
+  }
+  
+  if (newDate !== undefined && newDate.includes('-') === true) {
+    return res.json ({ "unix": new Date(newDate).getTime(), "utc" : new Date(newDate).toUTCString()  })
+  }
 
-else {
-  return res.json({ "unix": new Date(newDate).getTime()/1000, "utc": new Date(newDate).toUTCString()})
-}
+  if(newDate.includes('-') === false ) {
+    newDate = Number(newDate)
+    return res.json ({ "unix": newDate, "utc" : new Date(newDate).toUTCString()  })
+  }
+
+  if( utcDate === "Invalid Date") {
+    res.json({ "error" : "Invalid Date" })
+
+  };
 });
-
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
