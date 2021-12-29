@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-// processes strings, but not numbers
-// regex validation needed
-
 router.get("/:date", (req, res) => {
-  const date = new Date(req.params.date);
+  const regex = /-/;
+  let date = regex.test(req.params.date)
+    ? req.params.date
+    : Number(req.params.date);
+
+  date = new Date(date);
 
   const dateObject = {
     unix: date.getTime(),
