@@ -1,31 +1,5 @@
-GET http://localhost:3000/subscribers/async
+GET http://localhost:3000/api/2015-12-25
 
 ###
 
-GET http://localhost:3000/subscribers/callback
-
-###
-
-GET http://localhost:3000/subscribers/13
-###
-
-POST http://localhost:3000/subscribers
-Content-Type: application/json
-
-{
-  "name" : "Kyle the Great and Powerful",
-  "subscribedToChannel": "Deep-Sea Sing-Along"
-}
-###
-
-POST http://localhost:3000/subscribers/promise
-Content-Type: application/json
-
-{
-  "name" : "Emily",
-  "subscribedToChannel": "Taylor Swift"
-}
-
-###
-
-POST http://localhost:3000/subscribers/async
+GET http://localhost:3000/api/1451001600000

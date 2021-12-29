@@ -12,17 +12,12 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 const db = mongoose.connection;
 db.on("error", (err) => console.error(err));
 db.once("open", () => console.log("Connected to Database"));
 
 app.use(express.json());
-
-const subscribersRouter = require("./routes/subscribers");
-app.use("/subscribers", subscribersRouter);
-
-const apiRouter = require("./routes/api");
-app.use("/api", apiRouter);
 
 // so that your API is remotely testable by FCC
 const cors = require("cors");
@@ -36,10 +31,9 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-// your first API endpoint...
-app.get("/api/hello", function (req, res) {
-  res.json({ greeting: "hello API" });
-});
+// API router
+const apiRouter = require("./routes/api");
+app.use("/api", apiRouter);
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function () {
