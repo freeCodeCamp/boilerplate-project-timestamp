@@ -1,7 +1,5 @@
-// init project
-require("dotenv").config();
-
 const express = require("express");
+const serverless = require("serverless-http");
 const app = express();
 
 app.use(express.json());
@@ -19,10 +17,7 @@ app.get("/", function (req, res) {
 });
 
 // API router
-const timestampRouter = require("./routes/timestamp");
+const timestampRouter = require("../routes/timestamp");
 app.use("/api", timestampRouter);
 
-// listen for requests :)
-const listener = app.listen(process.env.PORT, function () {
-  console.log("Your app is listening on port " + listener.address().port);
-});
+module.exports.handler = serverless(app);
