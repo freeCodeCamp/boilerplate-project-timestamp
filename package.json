@@ -2,14 +2,17 @@
   "name": "fcc-api-projects-boilerplate",
   "version": "0.0.1",
   "description": "An FCC Backend Challenge",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon src/server.js",
+    "start:lambda": "netlify-lambda serve src",
+    "build:lambda": "netlify-lambda build src"
   },
   "dependencies": {
     "cors": "^2.8.0",
     "express": "^4.12.4",
     "mongoose": "^6.1.4",
+    "netlify-lambda": "^2.0.15",
     "serverless-http": "^2.7.0"
   },
   "repository": {
