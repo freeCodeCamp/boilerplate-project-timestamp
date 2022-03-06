@@ -44,3 +44,16 @@ li {
 a {
 	color: #2574A9;
 }
+
+.number {
+	color: green;
+}
+
+.string {
+	color: palevioletred;
+}
+
+table, tr, td, thead {
+	margin: 0 auto;
+	border: 1px solid black;
+}

@@ -5,6 +5,8 @@
 var express = require('express');
 var app = express();
 
+app.set("view engine", "ejs")
+
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
@@ -13,15 +15,31 @@ app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 20
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
+var number = 0;
+var string = "";
+
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+  res.render("index", {Number: number, String: string})
 });
 
 
+
 // your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+app.get("/api/:utc", function (req, res) {
+  var utc = req.params.utc;
+  const date = new Date(parseInt(utc));
+  const dateObj = {"unix": parseInt(utc), "utc": date.toString()};
+  const valArr = Object.values(dateObj);
+  number = valArr[0];
+  string = valArr[1];
+  const errorObj = { error : "Invalid Date" };
+ 
+  if (date == "Invalid Date") {
+    res.json(errorObj)
+  } else {
+    res.json(dateObj)
+  }
 });
 
 
