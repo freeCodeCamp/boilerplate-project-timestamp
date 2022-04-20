@@ -2,9 +2,9 @@
 	"name": "fcc-api-projects-boilerplate",
 	"version": "0.0.1",
 	"description": "An FCC Backend Challenge",
-	"main": "server.js",
+	"main": "index.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node index.js"
 	},
 	"dependencies": {
 		"express": "^4.12.4",
