@@ -6,7 +6,7 @@ var express = require('express');
 var app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
-// so that your API is remotely testable by FCC 
+// so that your API is remotely testable by FCC
 var cors = require('cors');
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
@@ -18,13 +18,23 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+app.get("/api/:time", (req,res) => {
+  const time = req.params.time;
+  let toDate = Date.parse(time) ? new Date(time) : new Date(Number(time));
+  let unix = toDate.getTime();
+  let utc = toDate.toUTCString();
+  if(toDate == 'Invalid Date'){
+    return res.json({error: 'Invalid Date'});
+  }
+  res.json({unix: unix, utc: utc});
 });
 
-
+app.get("/api", (req,res) => {
+  const time = new Date();
+  let unix = time.getTime();
+  let utc = time.toUTCString();
+  res.json({unix: unix, utc: utc});
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
