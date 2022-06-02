@@ -30,3 +30,32 @@ app.get("/api/hello", function (req, res) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+
+/*app.get('/api/:first', (req, res) => {
+  let date_string = req.params.first;
+  console.log(date_string);
+  if (date_string == null) {
+    var date = new Date();
+  }
+  else {
+    var date = new Date(date_string);
+  }
+  console.log(date);
+  console.log(date_string);
+  let jsonObj = {'unix':date,'utc':date};
+  res.send(jsonObj);
+});*/
+
+
+app.get('/api/:first', (req, res) => {
+  let date_string = req.params.first;
+  console.log(date_string);
+  if(req.query.first != null ) {date_string = (new Date(req.params.first)).getTime()}
+  else {date_string = Date.now()}
+ // console.log(date);
+  console.log(date_string);
+  let jsonObj = {'unix':date_string,'utc':new Date(date_string)};
+  res.send(jsonObj);
+  console.log(jsonObj);
+});
