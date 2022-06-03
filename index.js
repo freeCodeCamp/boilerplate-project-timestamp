@@ -59,3 +59,23 @@ app.get('/api/:first', (req, res) => {
   res.send(jsonObj);
   console.log(jsonObj);
 });
+
+app.get('/api/getTime/:first', (req, res) => {
+ 
+  res.send(getUtcAndUnix(req.params.first));
+  
+});
+
+
+
+
+const getUtcAndUnix = (date) => {
+  let newDate = date ? new Date(date) : new Date()
+  return{
+    utc: newDate,
+    unix: newDate.getTime()
+  }
+}
+
+// console.log(getUtcAndUnix())
+// console.log(getUtcAndUnix('5/1/2015'))
