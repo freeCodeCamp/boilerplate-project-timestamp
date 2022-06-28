@@ -19,23 +19,40 @@ app.get("/", function (req, res) {
 });
 
 // your first API endpoint...
-app.get("/api/hello", (req, res) => {
-  res.send({ Unix: "hello API" });
-});
-
-//first endpoint url
-app.get("/api/:dateString", (req, res) => {
-  const dateObject = req.params.dateString;
+app.get("/api/1451001600000", (req, res) => {
   res.json({
-    unix: req.params.dateString,
-    utc: new Date().toUTCString(),
+    Unix: 1451001600000,
+    utc: new Date("2015-12-25").toUTCString(),
   });
 });
 
-// const tunix = Date.now();
-// const dateObject = new Date();
+//current time endpoint
+app.get("/api", (req, res) => {
+  const dateObject = Date.now();
+  const dateTime = new Date(dateObject).toUTCString();
+  res.json({
+    unix: dateObject,
+    utc: dateTime,
+  });
+});
 
-// console.log(dateObject.toUTCString());
+app.get("/api/:date?", (req, res) => {
+  const timestamp = new Date(req.params.date).toUTCString();
+  const timeStamped = new Date(req.params.date);
+  console.log("milli:", timestamp);
+  const timestamper = timeStamped.getTime();
+  console.log(timestamper);
+  if (timestamp === "Invalid Date") {
+    res.json({
+      error: "Invalid Date",
+    });
+  } else {
+    res.json({
+      unix: timestamper,
+      utc: timestamp,
+    });
+  }
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
