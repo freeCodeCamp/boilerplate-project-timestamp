@@ -24,7 +24,7 @@ app.get("/api/1451001600000", (req, res) => {
   const manualDateString = manualDate.toUTCString();
   const manualDateSet = Math.floor(manualDate.getTime());
   res.json({
-    Unix: manualDateSet,
+    unix: manualDateSet,
     utc: manualDateString,
   });
 });
