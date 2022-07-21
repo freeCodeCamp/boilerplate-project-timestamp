@@ -18,7 +18,7 @@
     "url": "https://github.com/freeCodeCamp/freeCodeCamp/issues"
   },
   "homepage": "https://github.com/freeCodeCamp/boilerplate-project-timestamp#readme",
-  "author": "freeCodeCamp <team@freecodecamp.org>",
+  "author": "freeCodeCamp <team@freecodecamp.org>, Anzel Pyakurel",
   "keywords": [
     "node",
     "express",
