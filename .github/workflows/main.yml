@@ -1,0 +1,17 @@
+on: 
+ pull_request:
+  types: [closed] 
+jobs:
+  repo-sync:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: repo-sync
+      uses: wei/git-sync@v1
+      env:
+        SOURCE_REPO: "https://github.com/ParadoxPD/boilerplate-project-timestamp.git"
+        SOURCE_BRANCH: "master"
+        DESTINATION_REPO: ${{ secrets.glitch_git_URL }}
+        DESTINATION_BRANCH: "master"
+      with:
+        args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH
