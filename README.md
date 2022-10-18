@@ -3,12 +3,12 @@
 ## Overview
   This project is from [FreeCodeCamp's Backend development and apis course](https://www.freecodecamp.org/learn/back-end-development-and-apis/). It's one of the Microservice Api project needed to complete the backend course.
   
-  **Live link** - [TimeStamp Microservice Api]([https://](https://timestamp-microservice-api.asuquoemmanuel.repl.co))
+  **Live link** - [TimeStamp Microservice Api](https://timestamp-microservice-api.asuquoemmanuel.repl.co)
   
   This is the boilerplate code for the Timestamp Microservice project. Instructions for building your project can be found at https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice
 
 ## Author
-  Emmanuel Dan Asuquo
+  **Emmanuel Dan Asuquo**
   * LinkedIn - [@Emmanuel Asuquo](https://www.linkedin.com/in/emmanuel-asuquo-60381a1a6)
   * Twitter - [@_emmanueldan](https://twitter.com/_emmanueldan)
   * Github - [@dannyrae](https://github.com/dannyrae)
