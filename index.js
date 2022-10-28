@@ -20,9 +20,43 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
-});
+let myObject = {};
+app.get("/api/:date_string",  (req, res) => {
+  let date = req.params.date_string;
+    if (date.includes('-'))  {
+
+  myObject['unix'] = new Date(date).getTime(); 
+  myObject['utc'] = new Date(date).toUTCString();
+
+
+    
+    } else {
+      date = parseInt(date);
+    
+        myObject['unix'] = date;
+        myObject['utc'] = new Date(date).toUTCString();
+        
+    };
+
+       if (!myObject["unix"] || !myObject["utc"]) {
+          res.json(
+            {
+               "error": "Invalid Date"
+            }
+          );
+        } 
+       res.json(myObject);
+  });
+
+
+      app.get('/api', (req, res) => {
+          res.json(
+            {
+              "unix": new Date().getTime(),
+              "utc": new Date().toUTCString(),
+            }
+          );
+    });
 
 
 
