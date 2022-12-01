@@ -40,14 +40,9 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-const validate  =  ({unix,utc})=>{
-  console.log("Testing date ",utc);
-  try {
-    let ud  =  new Date(unix);
-    let uxd  =  new Date(utc);
-  } catch (error) {
-    console.log("Invalid",d);
-  }
+
+const isValid=(date)=>{
+  return /^\d+$/.test(date);
 }
 app.get("/api/",(req,res)=>{
   let dateobject  =  new Date();
@@ -60,48 +55,33 @@ app.get("/api/",(req,res)=>{
   }
   res.json(result);
 })
+/**
+ * 
+ *     utc     = utc.format("ddd, DD MMM YYYY");
+        utc     = `${utc} 00:00:00 GMT`;
+ */
 
 
 app.get("/api/:date", function (req, res) {
     let date  =  req.params.date;
     let result  = {}
-
-
-    console.log(date);
-     if(date.includes('-')){
-      try {
-        let dateobject    = new Date(date);
-        let utc   = dateobject.toUTCString();
-        let unix  = Math.floor(dateobject.getTime());
-        if(utc==="Invalid Date") throw Error("Invalid Date")
-        result  = {
-          unix:Number(unix),
-          utc:utc
-        }
-        validate(result);
-      } catch (error) {
-        result  = { error : "Invalid Date" }
-      }
-    }else{
-      try {
-        date  = Number(date);
-        
-        let utc = moment(date).utc();
-        utc     = utc.format("ddd, DD MMM YYYY");
-        utc     = `${utc} 00:00:00 GMT`;
-        result  = {
-           unix :Number(date),
-           utc: utc
-        }
-        validate(result)
-      } catch (error) {
-        console.log(error)
-        result= { error : "Invalid Date" }
-      }
+    if(isValid(date)===true)
+      date  =  Number(date);
+    let dateobject  = new Date(date);
+    let utc   =  dateobject.toUTCString();
+    
+    let unix  = Math.floor(dateobject.getTime());
+    unix      =  Number(unix);
+    if(isNaN(unix)===true)
+      result  =  { error : "Invalid Date" };
+    else{
+      result  =  {
+        unix    :  unix,
+        utc    :  utc
+      };
     }
-  res.json(result);
+    res.json(result);
 });
-
 
 
 
@@ -112,5 +92,6 @@ app.get("/api/:date", function (req, res) {
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
+
   console.log(`http://localhost:${listener.address().port}`);
 });
