@@ -4,7 +4,19 @@
 // init project
 var express = require('express');
 var app = express();
+
+// enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
+// so that your API is remotely testable by FCC 
+var cors = require('cors');
+app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+// index.js
+// where your node app starts
+
+// init project
+var express = require('express');
+var app = express();
 const moment  =  require('moment');
+require('dotenv').config()
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -28,55 +40,65 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-const validate  =  (date)=>{
-  console.log("Testing date ",date);
+const validate  =  ({unix,utc})=>{
+  console.log("Testing date ",utc);
   try {
-    let d=new Date(date);
-    if(d){
-      console.log("valid ",d);
-      // console.log()
-    }
+    let ud  =  new Date(unix);
+    let uxd  =  new Date(utc);
   } catch (error) {
     console.log("Invalid",d);
   }
 }
+app.get("/api/",(req,res)=>{
+  let dateobject  =  new Date();
+  let utc   = dateobject.toUTCString();
+  let unix  = Math.floor(dateobject.getTime());
+  unix      =  Number(unix);
+  result  =  {
+    unix    :  unix,
+    utc    :  utc
+  }
+  res.json(result);
+})
+
 
 app.get("/api/:date", function (req, res) {
-  let date  =  req.params.date;
-  
-  let result  =  {}
-  if(date.includes('-')){
-    let isValid  =  moment(date, "YYYY-MM-DD").isValid();
-   if(isValid){
-      let unix = moment(date,"YYYY-MM-DD").unix();
-      let utc  =  moment(date).utc().format("ddd, DD MMM YYYY 00:00:00")+" GMT";
+    let date  =  req.params.date;
+    let result  = {}
 
-      validate(unix);
-      validate(utc);
-      result  =  {
-        "unix"  :  unix,
-        "utc"   :  utc
-      }
-   }else{
-      result  =  { error : "Invalid Date" }
 
-   }
-  }else{
-     try {
-       let unixDate =  moment(parseInt(date)).format('YYYY-MM-DD');
-      let utc  =  moment(unixDate).utc().format("ddd, DD MMMM YYYY 00:00:00")+" GMT";
-      validate(utc) ;
-       
-       result  =  {
-          unix:date,
+    console.log(date);
+     if(date.includes('-')){
+      try {
+        let dateobject    = new Date(date);
+        let utc   = dateobject.toUTCString();
+        let unix  = Math.floor(dateobject.getTime());
+        if(utc==="Invalid Date") throw Error("Invalid Date")
+        result  = {
+          unix:Number(unix),
           utc:utc
         }
-       
-     } catch (error) {
-       console.log(error)
-       result  =  { error : "Invalid Date" }
-     }
-  }
+        validate(result);
+      } catch (error) {
+        result  = { error : "Invalid Date" }
+      }
+    }else{
+      try {
+        date  = Number(date);
+        
+        let utc = moment(date).utc();
+        utc     = utc.format("ddd, DD MMM YYYY");
+        utc     = `${utc} 00:00:00 GMT`;
+        result  = {
+           unix :Number(date),
+           utc: utc
+        }
+        validate(result)
+      } catch (error) {
+        console.log(error)
+        result= { error : "Invalid Date" }
+      }
+    }
   res.json(result);
 });
 
@@ -84,7 +106,11 @@ app.get("/api/:date", function (req, res) {
 
 
 
+
+
+
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+  console.log(`http://localhost:${listener.address().port}`);
 });
