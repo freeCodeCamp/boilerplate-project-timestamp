@@ -34,7 +34,7 @@ app.get("/api/:date?", function (req, res) {
     let unixTimestamp = parseInt(req.params.date);
     // date validity
     if (!isNaN(unixTimestamp) && unixTimestamp > 0) {
-      date = new Date(unixTimestamp);
+      date = new Date(unixTimestamp * 1000); //turn into miliseconds
     } else {
       //if invalid, parse it as string
       date = new Date(req.params.date);
@@ -42,7 +42,7 @@ app.get("/api/:date?", function (req, res) {
   }
   console.log(`date`, date);
   if (isNaN(date.getTime())) {
-    res.json({ error: `${date} invalid input` });
+    res.json({ error: `Invalid Date` });
   } else {
     res.json({ unix: date.getTime(), utc: date.toUTCString() });
   }
