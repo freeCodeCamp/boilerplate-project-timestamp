@@ -23,32 +23,28 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: "hello API" });
 });
 
-//Timestamp Microservice
+// Timestamp Microservice
 app.get("/api/:date?", function (req, res) {
   let date;
   if (!req.params.date) {
-    //No params, get current date
+    // No params, get current date
     date = new Date();
+  } else if (/^\d+$/.test(req.params.date)) {
+    // The parameter is a Unix timestamp
+    date = new Date(parseInt(req.params.date));
   } else {
-    // Try to parse the date parameter as an integer to see if it's a Unix timestamp
-    const unixTimestamp = parseInt(req.params.date);
-
-    if (!isNaN(unixTimestamp) && unixTimestamp > 0) {
-      // The parameter was a Unix timestamp
-      date = new Date(unixTimestamp * 1000); // Convert to milliseconds by multiplying by 1000
-    } else {
-      // The parameter was not a Unix timestamp, so try to parse it as a string
-      date = new Date(req.params.date);
-    }
+    // The parameter is a date string
+    date = new Date(req.params.date);
   }
 
-  console.log(`date`, date);
   if (isNaN(date.getTime())) {
-    res.json({ error: `Invalid Date` });
+    res.json({ error: 'Invalid Date' });
   } else {
     res.json({ unix: date.getTime(), utc: date.toUTCString() });
   }
 });
+
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log("Your app is listening on port " + listener.address().port);
