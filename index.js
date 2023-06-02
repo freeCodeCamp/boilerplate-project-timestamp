@@ -30,16 +30,18 @@ app.get("/api/:date?", function (req, res) {
     //No params, get current date
     date = new Date();
   } else {
-    // Turn params into Unix interger
-    let unixTimestamp = parseInt(req.params.date);
-    // date validity
+    // Try to parse the date parameter as an integer to see if it's a Unix timestamp
+    const unixTimestamp = parseInt(req.params.date);
+
     if (!isNaN(unixTimestamp) && unixTimestamp > 0) {
-      date = new Date(unixTimestamp * 1000); //turn into miliseconds
+      // The parameter was a Unix timestamp
+      date = new Date(unixTimestamp * 1000); // Convert to milliseconds by multiplying by 1000
     } else {
-      //if invalid, parse it as string
+      // The parameter was not a Unix timestamp, so try to parse it as a string
       date = new Date(req.params.date);
     }
   }
+
   console.log(`date`, date);
   if (isNaN(date.getTime())) {
     res.json({ error: `Invalid Date` });
