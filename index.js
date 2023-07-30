@@ -19,39 +19,23 @@ app.get("/", function (req, res) {
 });
 
 // your first API endpoint...
-app.get("/api/:date", function (req, res) {
-  const weekday = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
-  const month = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  let { date } = req.params;
-  let newDate = date;
-  date = date.indexOf("-") > -1 ? date : date * 1000;
-  const unix =
-    newDate.indexOf("-") > -1
-      ? new Date(date).getTime()
-      : new Date(date).getTime() / 1000;
-  let full = new Date(date);
-  let hour = full.getHours() > 10 ? full.getHours() : "0" + full.getHours();
-  let min =
-    full.getMinutes() > 10 ? full.getMinutes() : "0" + full.getMinutes();
-  let sec =
-    full.getSeconds() > 10 ? full.getSeconds() : "0" + full.getSeconds();
-  let utc = `${weekday[full.getDay()]}, ${full.getDate()} ${
-    month[full.getMonth()]
-  } ${full.getFullYear()} ${hour}:${min}:${sec} GMT`;
-  res.json({ unix: unix, utc: utc });
+app.get("/api/:dateString?", function (req, res) {
+  let { dateString } = req.params;
+  let date;
+  if (!dateString) {
+    date = new Date();
+  } else {
+    if (!isNaN(dateString)) {
+      date = new Date(parseInt(dateString));
+    } else {
+      date = new Date(dateString);
+    }
+  }
+  if (date.toString() === "Invalid Date") {
+    res.json({ error: date.toString() });
+  } else {
+    res.json({ unix: date.getTime(), utc: date.toUTCString() });
+  }
 });
 
 // listen for requests :)
