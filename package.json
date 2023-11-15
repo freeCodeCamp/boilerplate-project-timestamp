@@ -7,8 +7,10 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "cors": "^2.8.0",
+    "dotenv": "^16.3.1",
     "express": "^4.12.4",
-    "cors": "^2.8.0"
+    "nodemon": "^3.0.1"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,7 @@
     "url": "https://github.com/freeCodeCamp/freeCodeCamp/issues"
   },
   "homepage": "https://github.com/freeCodeCamp/boilerplate-project-timestamp#readme",
-  "author": "freeCodeCamp <team@freecodecamp.org>",
+  "author": "LarhDev <larh157@gmail.com>",
   "keywords": [
     "node",
     "express",
