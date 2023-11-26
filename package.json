@@ -4,12 +4,14 @@
   "description": "An FCC Backend Challenge",
   "main": "index.js",
   "scripts": {
+    "deploy": "gh-pages -d dist",
     "start": "node index.js"
   },
   "dependencies": {
     "cors": "^2.8.0",
     "ejs": "^3.1.9",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "gh-pages": "^6.1.0"
   },
   "repository": {
     "type": "git",
@@ -18,8 +20,8 @@
   "bugs": {
     "url": "https://github.com/freeCodeCamp/freeCodeCamp/issues"
   },
-  "homepage": "https://github.com/freeCodeCamp/boilerplate-project-timestamp#readme",
-  "author": "freeCodeCamp <team@freecodecamp.org>",
+  "homepage": "https://blacknrekt.github.io/boilerplate-project-timestamp/views/index.html",
+  "author": "blackNrekt",
   "keywords": [
     "node",
     "express",
