@@ -26,10 +26,12 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/:date?", (req, res) => {
   const fecha = req.params.date;
+  const objectResponse = {};
   if(fecha.includes('-')){
-    res.send('fecha en formato de YYYY-MM-DD')
+    objectResponse.unix = Date.parse(fecha);
+  } else{
+    objectResponse.unix = Number(fecha);
   }
-  res.send('Fecha en formato de milisegundos')
 });
 
 // listen for requests :)
