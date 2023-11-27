@@ -27,15 +27,18 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/:date?", (req, res) => {
   const fecha = req.params.date;
   const objectResponse = {};
-  if(fecha.includes('-')){
+  
+  if(!fecha){
+    objectResponse.unix = Date.parse(new Date())
+  }else if(fecha.includes('-')){
     objectResponse.unix = Date.parse(fecha);
-  } else{
+  }else{
     objectResponse.unix = Number(fecha);
   }
 
   objectResponse.utc = new Date(objectResponse.unix).toUTCString();
 
-  res.send(objectResponse);
+  res.json(objectResponse);
 });
 
 // listen for requests :)
