@@ -32,6 +32,10 @@ app.get("/api/:date?", (req, res) => {
   } else{
     objectResponse.unix = Number(fecha);
   }
+
+  objectResponse.utc = new Date(objectResponse.unix).toUTCString();
+
+  res.send(objectResponse);
 });
 
 // listen for requests :)
