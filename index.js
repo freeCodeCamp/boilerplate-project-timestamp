@@ -24,6 +24,44 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// timestamp endpoint
+
+app.get("/api/:date", function (req, res) {
+  let dateS = req.params.date;
+  let milliseconds = dateS * 1000;
+
+  function isValidDateFormat(inputDate) {
+    // Regular expression for the "YYYY-MM-DD" format
+    var dateFormat = /^\d{4}-\d{2}-\d{2}$/;
+
+    // Test if the input matches the format
+    return dateFormat.test(inputDate);
+  }
+
+  if (isValidDateFormat(dateS)) {
+    milliseconds = dateS; 
+  } else {
+    milliseconds = dateS * 1000;
+  }
+  
+  var newDate = new Date(milliseconds);
+  var utcDate = newDate.toUTCString();
+  var unixDate = newDate.getTime();
+
+  if (utcDate === "Invalid Date") {
+    res.json({error: "Invalid Date"});
+  }else if (unixDate === "Invalid Date") {
+    
+    res.json({error: "Invalid Date"});
+  }else{
+    res.json({ unix: unixDate, utc: utcDate });
+  }; 
+
+  
+});
+
+
+
 
 
 // listen for requests :)
