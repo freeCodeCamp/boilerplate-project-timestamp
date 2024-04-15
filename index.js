@@ -28,12 +28,10 @@ app.get("/api/:date?", (req, res) => {
     let dateObject = new Date();
     res.json({ unix: dateObject.getTime(), utc: dateObject.toUTCString() });
   } else {
-    // A 4 digit number is a valid ISO-8601 for the beginning of that year
-    // 5 digits or more must be a unix time, until we reach a year 10,000 problem
-    if (/\d{5,}/.test(date)) {
+    // Check if the date parameter is a valid number
+    if (/^\d+$/.test(date)) {
       let dateInt = parseInt(date);
-      // Date regards numbers as unix timestamps, strings are processed differently
-      res.json({ unix: date, utc: new Date(dateInt).toUTCString() });
+      res.json({ unix: dateInt, utc: new Date(dateInt).toUTCString() });
     } else {
       let dateObject = new Date(date);
 
@@ -44,7 +42,7 @@ app.get("/api/:date?", (req, res) => {
       }
     }
   }
-});
+})
 
 // Listen on the port set in the environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
