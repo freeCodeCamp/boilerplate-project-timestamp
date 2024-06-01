@@ -23,7 +23,7 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
+// Helper function to format the date
 function formatDate(date) {
   return {
     unix: date.getTime(),
@@ -33,28 +33,27 @@ function formatDate(date) {
 
 app.get('/api/:date?', (req, res) => {
   const { date } = req.params;
-  
+
+  // Handle the case where no date is provided
   if (!date) {
-    // If no date is provided, return the current date
     const currentDate = new Date();
     res.json(formatDate(currentDate));
-  } else {
-    // Check if the date is a valid Unix timestamp or ISO date string
-    let parsedDate;
-    if (!isNaN(date)) {
-      // Unix timestamp
-      parsedDate = new Date(parseInt(date));
-    } else {
-      // ISO date string
-      parsedDate = new Date(date);
-    }
+    return;
+  }
 
-    // Check if the parsed date is valid
-    if (!isNaN(parsedDate.getTime())) {
-      res.json(formatDate(parsedDate));
-    } else {
-      res.json({ error: "Invalid Date" });
-    }
+  // Try to parse the date as a number (Unix timestamp) or as a date string
+  let parsedDate;
+  if (!isNaN(date)) {
+    parsedDate = new Date(parseInt(date));
+  } else {
+    parsedDate = new Date(date);
+  }
+
+  // Check if the parsed date is valid
+  if (!isNaN(parsedDate.getTime())) {
+    res.json(formatDate(parsedDate));
+  } else {
+    res.json({ error: "Invalid Date" });
   }
 });
 
