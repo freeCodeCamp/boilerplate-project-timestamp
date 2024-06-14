@@ -18,6 +18,7 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+/* ****************************************************************** */
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
@@ -25,8 +26,41 @@ app.get("/api/hello", function (req, res) {
 });
 
 
+app.get("/api/", function(req, res) {
+  let date = new Date();
+  let utcDate = date.toUTCString();
+  let unix = parseInt((new Date(utcDate).getTime()).toFixed(0));
+
+  res.json({unix: unix, utc: utcDate})
+})
+
+app.get("/api/:date", function(req, res) {
+  let dateReq = req.params.date;
+  let date;
+  
+  // Type of date:
+  if (!isNaN(dateReq)) {
+    date = new Date(parseInt(dateReq));
+  } else {
+    date = new Date(dateReq);
+  }
+  
+  // Valid date:
+  if (date.toString() === 'Invalid Date') {
+    return res.status(400).json({ error: 'Invalid Date' });
+  }
+
+  
+  let utcDate = date.toUTCString();
+  let unix = parseInt((new Date(utcDate).getTime()).toFixed(0));
+  
+  res.json({unix: unix, utc:utcDate})
+})
+
+
+/* ****************************************************************** */
 
 // Listen on port set in environment variable or default to 3000
-var listener = app.listen(process.env.PORT || 3000, function () {
+var listener = app.listen(process.env.PORT || 3005, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
